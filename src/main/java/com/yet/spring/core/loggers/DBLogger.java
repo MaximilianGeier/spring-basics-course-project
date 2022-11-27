@@ -3,6 +3,7 @@ package com.yet.spring.core.loggers;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class DBLogger extends AbstractLogger {
 
     public void init() {
         //createDBSchema(); //delete
-        //createTableIfNotExists(); //для создания таблицы
+        createTableIfNotExists(); //для создания таблицы
         updateEventAutoId();
     }
 
@@ -63,6 +64,7 @@ public class DBLogger extends AbstractLogger {
 
     private void createTableIfNotExists() {
         try {
+            jdbcTemplate.update("DROP TABLE IF EXISTS t_event;");
             jdbcTemplate.update("CREATE TABLE t_event (" + "id INT NOT NULL PRIMARY KEY," + "date TIMESTAMP,"
                     + "msg VARCHAR(255)" + ")");
 

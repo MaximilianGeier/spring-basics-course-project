@@ -42,7 +42,7 @@ public class App {
         
         event = ctx.getBean(Event.class);
         logEvent(EventType.INFO, event, "One more event for 1");
-        
+
         event = ctx.getBean(Event.class);
         logEvent(EventType.INFO, event, "And one more event for 1");
         
@@ -50,7 +50,7 @@ public class App {
         logEvent(EventType.ERROR, event, "Some event for 2");
         
         event = ctx.getBean(Event.class);
-        logEvent(null, event, "Some event for 3");
+        logEvent(EventType.WARNING, event, "Some event for 3");
     }
     
     public App() {}
