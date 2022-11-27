@@ -26,15 +26,15 @@ public class DBLogger extends AbstractLogger {
     }
 
     public void init() {
-        createDBSchema();
-        createTableIfNotExists();
+        //createDBSchema(); //delete
+        //createTableIfNotExists(); //для создания таблицы
         updateEventAutoId();
     }
-    
+
     public void destroy() {
         int totalEvents = getTotalEvents();
         System.out.println("Total events in the DB: " + totalEvents);
-        
+
         List<Event> allEvents = getAllEvents();
         String allEventIds = allEvents.stream()
                 .map(Event::getId)
@@ -81,7 +81,7 @@ public class DBLogger extends AbstractLogger {
             }
         }
     }
-    
+
     private void updateEventAutoId() {
         int maxId = getMaxId();
         Event.initAutoId(maxId + 1);

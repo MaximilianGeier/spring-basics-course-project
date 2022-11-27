@@ -12,10 +12,10 @@
         http://www.springframework.org/schema/util/spring-util-3.2.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-        
-        
+
+
    <!-- Different way to define PropertyPlaceholderConfigurer :) -->
-   <context:property-placeholder location="${CLIENT_PROPS:classpath:client.properties}, 
+   <context:property-placeholder location="${CLIENT_PROPS:classpath:client.properties},
                                            ${DB_PROPS:classpath:db.properties}"
         system-properties-mode="OVERRIDE" ignore-resource-not-found="false"/>
 
@@ -23,6 +23,7 @@
         p:greeting="${greeting}">
         <constructor-arg index="0" value="${id}" />
         <constructor-arg value="${name}" />
+        <constructor-arg value="${city}" />
     </bean>
 
     <util:map id="loggerMap">
@@ -32,12 +33,12 @@
 
     <bean id="app" class="com.yet.spring.core.App">
         <constructor-arg ref="client" />
-        
+
         <constructor-arg value="#{ T(com.yet.spring.core.beans.Event).isDay(8,17) ? 
             cacheFileEventLogger : consoleEventLogger }" />
-        
+
         <constructor-arg ref="loggerMap"/>
-        
+
         <property name="startupMessage" value="#{'Hello user ' +
             ( systemProperties['os.name'].contains('Windows') ? 
                 systemEnvironment['USERNAME'] : systemEnvironment['USER'] ) + 
@@ -51,5 +52,5 @@
 
     <bean id="monitor" class="com.yet.spring.core.util.Monitor"/>
     <bean id="awared" class="com.yet.spring.core.util.AwareBean" init-method="init"/>
-    
+
 </beans>
